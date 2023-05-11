@@ -1,34 +1,43 @@
 {
-	"name": "ScratchWikiSkin",
-	"author": "Original skin by JSO. Rewrite to update style and registration by Kenny2scratch. Contributions made from jvvg, blob8108, scmb1, -PRO-,",
+	"name": "Mana",
+	"author": "Fork of ScratchWikiSkin2, customizations by the Spells and Guns team.",
 	"url": "https://github.com/InternationalScratchWiki/ScratchWikiSkin2",
-	"descriptionmsg": "scratchwikiskin-desc",
-	"namemsg": "skinname-scratchwikiskin2",
+	"descriptionmsg": "mana-desc",
+	"namemsg": "skinname-mana",
 	"license-name": "MIT",
 	"type": "skin",
 	"ValidSkinNames": {
-		"scratchwikiskin2": "ScratchWikiSkin"
+		"mana": {
+            "class": "Mana",
+            "args": [
+                {
+                   "name": "mana",
+                   "responsive": true
+                }
+            ]
+        }
 	},
 	"AutoloadClasses": {
-		"SkinScratchWikiSkin": "ScratchWikiSkin.skin.php",
-		"ScratchWikiSkinTemplate": "ScratchWikiSkinTemplate.php",
-		"ScratchWikiSkinHooks": "ScratchWikiSkin.hooks.php"
+		"Mana": "Mana.skin.php",
+		"ManaTemplate": "ManaTemplate.php",
+		"ManaHooks": "Mana.hooks.php"
 	},
 	"Hooks": {
 		"GetPreferences": "main",
-		"OutputPageBodyAttributes": "main"
+		"OutputPageBodyAttributes": "main",
+		"SidebarBeforeOutput": "main"
 	},
 	"HookHandlers": {
 		"main": {
-			"class": "ScratchWikiSkinHooks",
+			"class": "ManaHooks",
 			"services": ["UserOptionsLookup"]
 		}
 	},
 	"MessagesDirs": {
-		"ScratchWikiSkin": "i18n"
+		"Mana": "i18n"
 	},
 	"ResourceModules": {
-		"skins.scratchwikiskin2": {
+		"skins.mana": {
 			"class": "ResourceLoaderSkinModule",
 			"features": {
 				"content-links": true,
@@ -71,7 +80,7 @@
 	},
 	"ResourceFileModulePaths": {
 		"localBasePath": "",
-		"remoteSkinPath": "ScratchWikiSkin2"
+		"remoteSkinPath": "Mana"
 	},
 	"config": {
 		"SWS2JoinBox": {

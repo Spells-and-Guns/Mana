@@ -1,6 +1,6 @@
 <?php
 /**
- * BaseTemplate class for ScratchWikiSkin
+ * BaseTemplate class for Mana
  *
  * @file
  * @ingroup Skins
@@ -10,7 +10,7 @@ use MediaWiki\MediaWikiServices;
 
 require_once __DIR__ . '/consts.php';
 
-class ScratchWikiSkinTemplate extends BaseTemplate {
+class ManaTemplate extends BaseTemplate {
 	public function execute() {
 		global $wgLogo, $wgRightsPage, $wgRightsUrl, $wgRightsIcon, $wgRightsText, $wgLang, $wgSWS2JoinBox;
 		$user = RequestContext::getMain()->getUser();
@@ -20,7 +20,7 @@ class ScratchWikiSkinTemplate extends BaseTemplate {
 			$this->html('headelement');
 		}
 		$userOptionsLookup = MediaWikiServices::getInstance()->getUserOptionsLookup();
-		$colorPref = $userOptionsLookup->getOption( $user, HEADER_COLOR_PREF );
+		// $colorPref = $userOptionsLookup->getOption( $user, HEADER_COLOR_PREF );
 		$darkPref = $userOptionsLookup->getOption( $user, DARK_THEME_PREF );
 		?>
 <style>
@@ -28,10 +28,26 @@ class ScratchWikiSkinTemplate extends BaseTemplate {
 .wikilogo {
 	background-image: url(<?=$wgLogo?>);
 }
-#navigation, .dropdown {
-	background-color: <?=htmlspecialchars(str_replace([';', '}'], '', $colorPref))?>;
+:root {
+    --nav-height: 50px;
+    --nav-color-1: #191D23;
+    --nav-color-2: #111418; 
+    --nav-color-3: #3A3D41; 
+    --background-img: url("https://darkanddarker.wiki.spellsandguns.com/skins/ScratchWikiSkin2/resources/background.webp");
+    --background-color-1: rgba(0,0,0,0.85);
+    --background-color-2: rgba(0,0,0,0.9);
+    --text-color-1: #f2f2f2;
+    --text-color-2: #fff;
+    --text-color-3: #c3c3c3;
+    --accent-color-1: rgba(231,159,52,0.9);
+    --accent-color-2: rgba(241,185,62,1);
+    --accent-color-3: rgba(182, 127, 45, 0.9);
 }
+/* #navigation, .dropdown {
+	background-color: <?=htmlspecialchars(str_replace([';', '}'], '', $colorPref))?>;
+} */
 </style>
+<link rel="stylesheet" src="https://cdn.spellsandguns.com/<?= $wikiName ?>">
 <?php
 $logos = ResourceLoaderSkinModule::getAvailableLogos( $this->getSkin()->getConfig() );
 $wordmark = $logos['wordmark']['src'] ?? $this->get('stylepath') . '/' . $this->getSkin()->stylename . '/resources/Scratch-logo-sm.png';
@@ -272,7 +288,7 @@ $line = wfMessage('scratchwikiskin-dark-theme-feedback')->rawParams( $link )->in
 </div>
 <script>
 /*
-ScratchWikiSkin script
+Mana script
 */
 
 //get an element from a query selector, with functions to write, add, show, hide, addclass, delclass

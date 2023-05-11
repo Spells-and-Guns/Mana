@@ -2,6 +2,7 @@
 
 use MediaWiki\Hook\OutputPageBodyAttributesHook;
 use MediaWiki\Preferences\Hook\GetPreferencesHook;
+use MediaWiki\Hook\SidebarBeforeOutputHook;
 use MediaWiki\User\UserOptionsLookup;
 
 require_once __DIR__ . '/consts.php';
@@ -44,7 +45,7 @@ class HTMLColorField extends HTMLFormField {
     }
 }
 
-class ScratchWikiSkinHooks implements OutputPageBodyAttributesHook, GetPreferencesHook {
+class ManaHooks implements OutputPageBodyAttributesHook, GetPreferencesHook, SidebarBeforeOutputHook {
     private $userOptionsLookup;
 
     public function __construct(UserOptionsLookup $userOptionsLookup) {
@@ -61,21 +62,25 @@ class ScratchWikiSkinHooks implements OutputPageBodyAttributesHook, GetPreferenc
 
     public function onGetPreferences($user, &$preferences) {
         HTMLForm::$typeMappings['color'] = HTMLColorField::class;
-        $origpref = $this->userOptionsLookup->getOption($user, HEADER_COLOR_PREF);
-        $preferences[HEADER_COLOR_PREF] = [
-            'type' => 'color',
-            'pattern' => '#[0-9A-Fa-f]{6}',
-            'label-message' => 'scratchwikiskin-pref-color',
-            'section' => 'rendering/skin',
-            // Only expose background color preference when the skin is selected
-            'default' => ($origpref ? $origpref : '#7953c4'),
-            'hide-if' => ['!==', 'wpskin', 'scratchwikiskin2'],
-        ];
-        $preferences[DARK_THEME_PREF] = [
-            'type' => 'check',
-            'label-message' => 'scratchwikiskin-pref-dark',
-            'section' => 'rendering/skin',
-            'hide-if' => ['!==', 'wpskin', 'scratchwikiskin2'],
-        ];
+        // $origpref = $this->userOptionsLookup->getOption($user, HEADER_COLOR_PREF);
+        // $preferences[HEADER_COLOR_PREF] = [
+        //     'type' => 'color',
+        //     'pattern' => '#[0-9A-Fa-f]{6}',
+        //     'label-message' => 'scratchwikiskin-pref-color',
+        //     'section' => 'rendering/skin',
+        //     // Only expose background color preference when the skin is selected
+        //     'default' => ($origpref ? $origpref : '#7953c4'),
+        //     'hide-if' => ['!==', 'wpskin', 'scratchwikiskin2'],
+        // ];
+        // $preferences[DARK_THEME_PREF] = [
+        //     'type' => 'check',
+        //     'label-message' => 'scratchwikiskin-pref-dark',
+        //     'section' => 'rendering/skin',
+        //     'hide-if' => ['!==', 'wpskin', 'mana'],
+        // ];
+    }
+
+    public function onSidebarBeforeOutput($skin, &$sidebar): void {
+        $sidebar['TOOLBOX'] = false;
     }
 }

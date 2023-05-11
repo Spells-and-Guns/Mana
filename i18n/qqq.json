@@ -4,8 +4,8 @@
 			"Kenny2scratch"
 		]
 	},
-	"skinname-scratchwikiskin2": "{{optional}}",
-	"scratchwikiskin-desc": "{{desc|what=skin|name=ScratchWikiSkin2|url=https://github.com/InternationalScratchWiki/ScratchWikiSkin2}}",
+	"skinname-mana": "{{optional}}",
+	"mana-desc": "{{desc|what=skin|name=ScratchWikiSkin2|url=https://github.com/InternationalScratchWiki/ScratchWikiSkin2}}",
 	"scratchwikiskin-create": "Create button text in header",
 	"scratchwikiskin-create-project": "Text for link to make a project",
 	"scratchwikiskin-create-page": "Text for link to create a page",
