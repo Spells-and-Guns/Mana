@@ -81,6 +81,6 @@ class ManaHooks implements OutputPageBodyAttributesHook, GetPreferencesHook, Sid
     }
 
     public function onSidebarBeforeOutput($skin, &$sidebar): void {
-        $sidebar['TOOLBOX'] = false;
+        //$sidebar['TOOLBOX'] = false;
     }
 }
