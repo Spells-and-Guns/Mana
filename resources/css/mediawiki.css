@@ -1,0 +1,38 @@
+
+/************************** WIKI CORE CHANGES ***************************/
+/*Visual Editor*/
+.oo-ui-popupWidget-popup {
+    color: #000 
+}
+/*Editor*/
+.diffchange {
+    background: #3377b1!important 
+}
+.mw-notification-area {
+   /*Moves notification area under navbar*/
+    top: var(--nav-height)!important;
+}
+/*Tables*/
+td {
+    background-color: rgb(var(--background-color),.3) 
+}
+tr:hover td {
+    background-color: var(--table-hover) 
+}
+/*Wiki Content*/
+.toc,.tocnumber {
+   /*Table of Content*/
+    color: var(--text-color-1);
+    background-color: transparent 
+}
+.toctogglelabel,a {
+    color: rgb(var(--link-color)) 
+}
+.mw-changeslist-legend {
+   /*Recent Change background uses the same color*/
+    background-color: transparent!important;
+}
+
+.catlinks { /*category links at the bottom*/
+    background-color: transparent;
+}
