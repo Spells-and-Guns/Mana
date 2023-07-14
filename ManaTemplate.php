@@ -25,138 +25,137 @@ class ManaTemplate extends BaseTemplate {
 		?>
 
 <link rel="stylesheet" src="https://cdn.spellsandguns.com/<?= $wikiName ?>">
-<div id="navigation" role="banner">
-	<div class="inner">
-		<ul>
-			<li class="link"><a class="jump-to" href="#logo" tabindex="0"><span><?= wfMessage('sng-jump-to-sidebar')->escaped() ?></span></a></li>
-			<li class="link"><a class="jump-to" href="#firstHeading" tabindex="1"><span><?= wfMessage('sng-jump-to-content')->escaped() ?></span></a></li>
-			<li class="logo"><a aria-label="Spells&Guns" href="https://www.spellsandguns.com/">
-					<img alt="<?= wfMessage('sitetitle')->inContentLanguage()->escaped() ?>" src="https://cdn.spellsandguns.com/sng_resources/logo.png" height="70" width="70">
-				</a></li>
-				
-			<li class="link menu">
-				<a class="dropdown-toggle" style="font-size:1.8rem;text-align:center;">&equiv;</a>
-				<ul class="dropdown">
+<div id="navigation">
+	<ul>
+		<li class="logo"><a aria-label="Spells&Guns" href="https://www.spellsandguns.com/">
+				<img alt="Spells&Guns" src="https://cdn.spellsandguns.com/sng_resources/logo.png" height="70" width="70">
+			</a></li>
 			
-			<?php $sidebarWithoutToolbox = $this->getSidebar(); 
-				unset($sidebarWithoutToolbox['TOOLBOX']);?>
-			<?php foreach ($sidebarWithoutToolbox as $box) { ?>
+		<li class="link mobilemenu">
+			<a class="dropdown-toggle" style="font-size:1.8rem;text-align:center;">&equiv;</a>
+			<ul class="dropdown">
+		
+		<?php $sidebarWithoutToolbox = $this->getSidebar(); 
+			unset($sidebarWithoutToolbox['TOOLBOX']);
+			//unset($sidebarWithoutToolbox['navigation']);
+			?>
+		<?php //MOBILE MENU
+		foreach ($sidebarWithoutToolbox as $key => $box) { ?>
 
-					<?php if (count($box['content'])==1) { 
-							$item = $box['content'][0];
-							if (str_contains($item['href'], 'https://') or str_contains($item['href'], 'http://')) {?>
-							<li><a href="<?= $item['href'] ?>" target="_blank"><span><?= $box['header'] ?></span></a></li>
-							<?php }
-							else {?>
-							<li><a href="<?= $item['href'] ?>"><span><?= $box['header'] ?></span></a></li>
-							<?php }?>
-					<?php }
-					else {?>
-							<?php if (is_array($box['content'])) { ?>
-									<?php foreach ($box['content'] as $name => $item) { ?>
-									<li><a href="<?= $item['href'] ?>"><span><?= $item['text'] ?></span></a></li>
-									<?php  } ?>
-							<?php }?>
-					<?php } ?>
-			<?php } ?>
-				</ul>
-			</li>
-			
-			<?php foreach ($sidebarWithoutToolbox as $box) { ?>
-				<?php if (count($box['content'])==1) { ?>
-					<li class="link normal">
-							<?php $item = $box['content'][0];
-							if (str_contains($item['href'], 'https://') or str_contains($item['href'], 'http://')) {?>
-							<a href="<?= $item['href'] ?>" target="_blank"><span><?= $box['header'] ?></span></a>
-							<?php }
-							else {?>
-							<a href="<?= $item['href'] ?>"><span><?= $box['header'] ?></span></a>
-							<?php }?>
-					</li>
+				<?php if (count($box['content'])==1) { 
+						$item = $box['content'][0];
+						if (str_contains($item['href'], 'https://') or str_contains($item['href'], 'http://')) {?>
+						<li><a href="<?= $item['href'] ?>" target="_blank"><span><?= $box['header'] ?></span></a></li>
+						<?php }
+						else {?>
+						<li><a href="<?= $item['href'] ?>"><span><?= $box['header'] ?></span></a></li>
+						<?php }?>
 				<?php }
 				else {?>
-					<li class="link toggle">
-						<a class="dropdown-toggle"><span><?= $box['header'] ?></span></a>
-						<ul class="dropdown">
-							
-							<?php if (is_array($box['content'])) { ?>
-									<?php foreach ($box['content'] as $name => $item) { ?>
-									
-									<li><a href="<?= $item['href'] ?>"><span><?=  $item['text'] ?></span></a></li>
-									
-									<?php  } ?>
-							<?php } ?>
-						</ul>
-					</li>
+						<?php if (is_array($box['content'])) { ?>
+								<?php foreach ($box['content'] as $name => $item) { ?>
+								<li><a href="<?= $item['href'] ?>"><span><?= $item['text'] ?></span></a></li>
+								<?php  } ?>
+						<?php }?>
 				<?php } ?>
+		<?php } ?>
+			</ul>
+		</li>
+		
+		<?php //PC MENU
+		foreach ($sidebarWithoutToolbox as $key => $box) { ?>
+			<?php if (count($box['content'])==1) { ?>
+				<li class="link normal">
+						<?php $item = $box['content'][0];
+						if (str_contains($item['href'], 'https://') or str_contains($item['href'], 'http://')) {?>
+						<a href="<?= $item['href'] ?>" target="_blank"><span><?= $box['header'] ?></span></a>
+						<?php }
+						else {?>
+						<a href="<?= $item['href'] ?>"><span><?= $box['header'] ?></span></a>
+						<?php }?>
+				</li>
+			<?php }
+			else {?>
+				<li class="link toggle">
+					<a class="dropdown-toggle"><span><?= $box['header'] ?></span></a>
+					<ul class="dropdown">
+						
+						<?php if (is_array($box['content'])) { ?>
+								<?php foreach ($box['content'] as $name => $item) { ?>
+								
+								<li><a href="<?= $item['href'] ?>"><span><?=  $item['text'] ?></span></a></li>
+								
+								<?php  } ?>
+						<?php } ?>
+					</ul>
+				</li>
 			<?php } ?>
-			
+		<?php } ?>
+		
 
-			<li class="search">
-				<form class="form" action="<?php $this->text('wgScript') ?>" role="search" aria-label="Search the Wiki">
-					<button class="button btn-search" tabindex="-1"></button>
-					<div class="form-group row no-label">
-						<div class="col-sm-9">
-							<input type="text" class="input" id="searchInput" accesskey="<?= wfMessage('accesskey-search')->inLanguage($wgLang)->escaped() ?>"  name="search" autocomplete="off" />
-							<input type="hidden" value="Special:Search" name="title" />
-						</div>
+		<li class="search">
+			<form class="form" action="<?php $this->text('wgScript') ?>" role="search" aria-label="Search the Wiki">
+				<button class="button btn-search" tabindex="-1"></button>
+				<div class="form-group row no-label">
+					<div class="col-sm-9">
+						<input type="text" class="input" id="searchInput" accesskey="<?= wfMessage('accesskey-search')->inLanguage($wgLang)->escaped() ?>"  name="search" autocomplete="off" />
+						<input type="hidden" value="Special:Search" name="title" />
 					</div>
-				</form>
-			</li>
-			<li class="link right content-actions">
-				<a class="dropdown-toggle" href="?action=edit">
-					<div></div>
-				</a>
-				<ul class="dropdown">
-					<?php foreach ($this->data['content_actions'] as $key => $tab) { ?>
-						<?= $this->getSkin()->makeListItem($key, $tab) ?>
-
-					<?php } ?>
-					<li><a href="/Wiki_Editing"><span><?= wfMessage('sng-wikieditguide')->inLanguage($wgLang)->escaped() ?></span></a></li>
-
-				</ul>
-			</li>
-			<li class="link right account-nav">
-				<a class="dropdown-toggle" href="<?php if ($user->isAnon()) { ?><?= Title::newFromText('Special:UserLogin')->fixSpecialName()->getLinkURL() ?><?php } else { ?><?= $user->getUserPage()->getLinkURL() ?><?php } ?>">
-					<span class="profile-name"><?php if ($user->isAnon()) { ?><?= wfMessage('sng-notloggedin')->inLanguage($wgLang)->escaped() ?><?php } else { ?><?= htmlspecialchars($user->getName()) ?><?php } ?></span>
-				</a>
-				<ul class="dropdown">
-					<?php foreach ($this->data['personal_urls'] as $key => $tab) { ?>
-						<?= $this->getSkin()->makeListItem($key, $tab) ?>
-
-					<?php } ?>
-
-				</ul>
-			</li>
-		</ul>
-	</div>
-</div>
-<div id="not-nav">
-	<div class="logoheader">
-				<div class="logopart" href="<?= htmlspecialchars($this->data['nav_urls']['mainpage']['href']) ?>" title="<?= wfMessage('mainpage')->inLanguage($wgLang)->escaped() ?>">
-					<a href="<?= htmlspecialchars($this->data['nav_urls']['mainpage']['href']) ?>">
-						<img src="/resources/logo.png" style="height:150px;" title="<?= wfMessage('mainpage')->inLanguage($wgLang)->escaped() ?>">
-					</a>
 				</div>
-			</div>
+			</form>
+		</li>
+
+		<li class="link right content-actions">
+			<a class="dropdown-toggle" href="?action=edit">
+				<div></div>
+			</a>
+			<ul class="dropdown">
+				<?php foreach ($this->data['content_actions'] as $key => $tab) { ?>
+					<?= $this->getSkin()->makeListItem($key, $tab) ?>
+
+				<?php } ?>
+				<li><a href="/Wiki_Editing"><span><?= wfMessage('sng-wikieditguide')->inLanguage($wgLang)->escaped() ?></span></a></li>
+
+			</ul>
+		</li>
+		<li class="link right account-nav">
+			<a class="dropdown-toggle" href="<?php if ($user->isAnon()) { ?><?= Title::newFromText('Special:UserLogin')->fixSpecialName()->getLinkURL() ?><?php } else { ?><?= $user->getUserPage()->getLinkURL() ?><?php } ?>">
+				<span class="profile-name"><?php if ($user->isAnon()) { ?><?= wfMessage('sng-notloggedin')->inLanguage($wgLang)->escaped() ?><?php } else { ?><?= htmlspecialchars($user->getName()) ?><?php } ?></span>
+			</a>
+			<ul class="dropdown">
+				<?php foreach ($this->data['personal_urls'] as $key => $tab) { ?>
+					<?= $this->getSkin()->makeListItem($key, $tab) ?>
+
+				<?php } ?>
+
+			</ul>
+		</li>
+	</ul>
+</div>
 <div id="view">
-	<div class="splash">
-		<div class="inner mod-splash">
-			<div class="left">
-				<div class="box" role="navigation" aria-label="Tools">
-					<div class="box-header">
-						<h4>Tools</h4>
-					</div>
-					<div class="box-content">
-<?php foreach ($this->data['sidebar']['TOOLBOX'] as $name => $item) { ?>
+	<div class="logoheader">
+		<div class="logopart" href="<?= htmlspecialchars($this->data['nav_urls']['mainpage']['href']) ?>" title="<?= wfMessage('mainpage')->inLanguage($wgLang)->escaped() ?>">
+			<a href="<?= htmlspecialchars($this->data['nav_urls']['mainpage']['href']) ?>">
+				<img src="/resources/logo.png" style="height:150px;" title="<?= wfMessage('mainpage')->inLanguage($wgLang)->escaped() ?>">
+			</a>
+		</div>
+	</div>
+	<div class="main">
+		<div class="left">
+			<div class="box" role="navigation" aria-label="Tools">
+				<div class="box-header">
+					<h4>Tools</h4>
+				</div>
+				<div class="box-content">
+					<?php foreach ($this->data['sidebar']['TOOLBOX'] as $name => $item) { ?>
 						<ul>
 							<?=$this->getSkin()->makeListItem($name, $item)?>
 						</ul>
-<?php } ?>
+					<?php } ?>
 
-					</div>
 				</div>
-<?php if ($user->isAnon() && $wgSWS2JoinBox) { ?>
+			</div>
+			<?php if ($user->isAnon() && $wgSWS2JoinBox) { ?>
 				<div class="box" role="complementary" aria-label="<?=wfMessage( 'scratchwikiskin-helpthewiki' )->inLanguage( $wgLang )->escaped()?>">
 					<div class="box-header">
 						<h4><?=wfMessage( 'scratchwikiskin-helpthewiki' )->inLanguage( $wgLang )->escaped()?></h4>
@@ -167,56 +166,53 @@ class ManaTemplate extends BaseTemplate {
 						<p><a href="<?php echo Title::newFromText(wfMessage( 'portal-url' )->inContentLanguage()->text())->getLocalURL();?>"><?=wfMessage( 'scratchwikiskin-seeportal' )->inLanguage( $wgLang )->escaped()?></a></p>
 					</div>
 				</div>
-<?php } ?>
-			</div>
-			<div class="right">
-				<?php if ($this->data['newtalk']) { ?><div class="box"><div class="box-header"><h4><?php $this->html('newtalk') ?></h4></div></div><?php } ?>
-				<?php if ($this->data['sitenotice']) { ?><div id="siteNotice"><?php $this->html('sitenotice'); ?></div><?php } ?>
-				<div class="box">
-					<div class="box-header">
-						<?=$this->getIndicators()?>
-						<h1 id="firstHeading" class="firstHeading"><?php $this->html('title')?></h1>
-					</div>
-					<div class="box-content" id="content" role="main">
-<p id="siteSub"><?=wfMessage( 'tagline' )->inLanguage( $wgLang )->escaped()?></p>
-<?php if ($this->data['subtitle']) { ?><p id="contentSub"><?php $this->html('subtitle') ?></p><?php } ?>
-<?php if ($this->data['undelete']) { ?><p><?php $this->html('undelete') ?></p><?php } ?>
-<?php $this->html('bodytext') ?>
-<?php $this->html('dataAfterContent'); ?>
-<?php if ($this->data['catlinks']) {
-	$this->html( 'catlinks' );
-}
-$url = wfMessage('scratchwikiskin-discuss-wiki')->inLanguage( $wgLang )->escaped();
-$text = wfMessage('scratchwikiskin-discuss-wiki-text')->inLanguage( $wgLang )->escaped();
-$link = "<a href=\"$url\" target=\"_blank\">$text</a>";
-$line = wfMessage('scratchwikiskin-dark-theme-feedback')->rawParams( $link )->inLanguage( $wgLang )->escaped();
-?>
-					<div id="feet" style="margin: 0<?=$darkPref ? '' : '; display: none'?>"><?=$line?></div>
-					</div>
+			<?php } ?>
+		</div>
+		<div class="right">
+			<?php if ($this->data['newtalk']) { ?><div class="box"><div class="box-header"><h4><?php $this->html('newtalk') ?></h4></div></div><?php } ?>
+			<?php if ($this->data['sitenotice']) { ?><div id="siteNotice"><?php $this->html('sitenotice'); ?></div><?php } ?>
+			<div class="box">
+				<div class="box-header">
+					<?=$this->getIndicators()?>
+					<h1 id="firstHeading" class="firstHeading"><?php $this->html('title')?></h1>
 				</div>
-				<ul id="feet">
-<?php foreach ( $this->getFooterLinks('flat') as $key ) { ?>
-					<li><?php $this->html( $key ) ?></li>
-<?php } ?>
-					<?php if (!empty( $wgRightsIcon )) { ?>
-					<br/>
-					<a href="<?php
-					if (!empty( $wgRightsPage )) {
-						echo Title::newFromText( $wgRightsPage )->getLocalURL();
-					} else {
-						echo $wgRightsUrl;
+				<div class="box-content" id="content" role="main">
+					<p id="siteSub"><?=wfMessage( 'tagline' )->inLanguage( $wgLang )->escaped()?></p>
+					<?php if ($this->data['subtitle']) { ?><p id="contentSub"><?php $this->html('subtitle') ?></p><?php } ?>
+					<?php if ($this->data['undelete']) { ?><p><?php $this->html('undelete') ?></p><?php } ?>
+					<?php $this->html('bodytext') ?>
+					<?php $this->html('dataAfterContent'); ?>
+					<?php if ($this->data['catlinks']) {
+						$this->html( 'catlinks' );
 					}
-					?>">
-						<img style="float: right" alt="<?=$wgRightsText?>" src="<?=$wgRightsIcon?>">
-					</a>
-					<?php } ?>
-				</ul>
+					$url = wfMessage('scratchwikiskin-discuss-wiki')->inLanguage( $wgLang )->escaped();
+					$text = wfMessage('scratchwikiskin-discuss-wiki-text')->inLanguage( $wgLang )->escaped();
+					$link = "<a href=\"$url\" target=\"_blank\">$text</a>";
+					$line = wfMessage('scratchwikiskin-dark-theme-feedback')->rawParams( $link )->inLanguage( $wgLang )->escaped();
+					?>
+					<div id="feet" style="margin: 0<?=$darkPref ? '' : '; display: none'?>"><?=$line?></div>
+				</div>
 			</div>
+			<ul id="feet">
+				<?php foreach ( $this->getFooterLinks('flat') as $key ) { ?>
+									<li><?php $this->html( $key ) ?></li>
+				<?php } ?>
+				<?php if (!empty( $wgRightsIcon )) { ?>
+				<br/>
+				<a href="<?php
+				if (!empty( $wgRightsPage )) {
+					echo Title::newFromText( $wgRightsPage )->getLocalURL();
+				} else {
+					echo $wgRightsUrl;
+				}
+				?>">
+					<img style="float: right" alt="<?=$wgRightsText?>" src="<?=$wgRightsIcon?>">
+				</a>
+				<?php } ?>
+			</ul>
 		</div>
 	</div>
-</div>
-	<div id="footer" role="contentinfo">
-		<div class="inner">
+	<div class="footer" role="contentinfo">
 			<div class="lists" style="font-weight:bold;margin-bottom:10px">
 				<span>
 					<a href="https://discord.gg/wqRBSytTmP">Questions or feedback? Join the discussion on the dedicated Discord!</a>
@@ -236,7 +232,7 @@ $line = wfMessage('scratchwikiskin-dark-theme-feedback')->rawParams( $link )->in
 					
 				</span>
 			</div>
-		</div>
+
 	</div>
 
 </div>
@@ -342,3 +338,4 @@ document.querySelector('#navigation .sidebar-toggle').addEventListener('click', 
 		}
 	}
 }
+
