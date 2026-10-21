@@ -25,3 +25,12 @@
     background-repeat: no-repeat;
     filter: invert(100%);
 }
+
+/* Custom logo header centering on mobile */
+.logopart {
+    position: static;
+    margin: auto;
+    width: 33%;
+    align-items: center;
+    justify-content: center;
+}
