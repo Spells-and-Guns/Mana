@@ -31,9 +31,12 @@ class ScratchWikiSkinTemplate extends BaseTemplate {
 </style>
 <?php
 $logos = MediaWiki\ResourceLoader\SkinModule::getAvailableLogos( $this->getSkin()->getConfig() );
-$wordmark = $logos['wordmark']['src'] ?? $this->get('stylepath') . '/' . $this->getSkin()->stylename . '/resources/Scratch-logo-sm.png';
-$wordmarkW = $logos['wordmark']['width'] ?? 76;
-$wordmarkH = $logos['wordmark']['height'] ?? 28;
+$wordmark = $logos['wordmark']['src'] ?? $this->get('stylepath') . '/' . $this->getSkin()->stylename . '/resources/logo.png';
+$wordmarkW = $logos['wordmark']['width'] ?? 70;
+$wordmarkH = $logos['wordmark']['height'] ?? 70;
+// Sidebar boxes (excluding TOOLBOX) drive the project-specific top-nav links.
+$sidebarWithoutToolbox = $this->getSidebar();
+unset( $sidebarWithoutToolbox['TOOLBOX'] );
 ?>
 <div id="navigation" role="banner">
 	<div class="inner">
@@ -41,45 +44,37 @@ $wordmarkH = $logos['wordmark']['height'] ?? 28;
 			<li class="link"><a class="jump-to" href="#logo" tabindex="0"><span><?=wfMessage('scratchwikiskin-jump-to-sidebar')->escaped()?></span></a></li>
 			<li class="link"><a class="jump-to" href="#firstHeading" tabindex="1"><span><?=wfMessage('scratchwikiskin-jump-to-content')->escaped()?></span></a></li>
 			<li class="sidebar-toggle"><a></a></li>
-			<li class="logo"><a aria-label="Scratch" href="https://scratch.mit.edu/">
+			<li class="logo"><a aria-label="Spells &amp; Guns" href="https://www.spellsandguns.com/">
 				<img alt="<?=wfMessage('sitetitle')->inContentLanguage()->escaped()?>" src="<?=htmlspecialchars($wordmark) ?>" height="<?= $wordmarkH ?>" width="<?= $wordmarkW ?>">
 			</a></li>
-			<li class="link create">
-				<a class="dropdown-toggle" href="https://scratch.mit.edu/projects/editor/"><span><?=wfMessage('scratchwikiskin-create')->inLanguage( $wgLang )->escaped()?></span></a>
-				<ul class="dropdown">
-					<li><a href="https://scratch.mit.edu/projects/editor/"><span><?=wfMessage( 'scratchwikiskin-create-project' )->inLanguage( $wgLang )->escaped() ?></span></a></li>
-					<li><a href="<?=Title::newFromText(wfMessage('scratchwikiskin-create-page-url')->inContentLanguage()->text())->getLinkURL()?>"><span><?=wfMessage('scratchwikiskin-create-page')->inLanguage( $wgLang )->escaped()?></span></a></li>
-				</ul>
-			</li>
-			<li class="link explore">
-				<a class="dropdown-toggle" href="https://scratch.mit.edu/explore/projects/all"><span><?=wfMessage('scratchwikiskin-explore')->inLanguage( $wgLang )->escaped()?></span></a>
-				<ul class="dropdown">
-					<li><a href="https://scratch.mit.edu/explore/projects/all"><span><?=wfMessage( 'scratchwikiskin-explore-projects' )->inLanguage( $wgLang )->escaped() ?></span></a></li>
-					<li><a href="<?=Title::newFromText(wfMessage('randompage-url')->inContentLanguage()->text())->getLinkURL()?>"><span><?=wfMessage('randompage')->inLanguage( $wgLang )->escaped()?></span></a></li>
-				</ul>
-			</li>
-			<li class="link discuss">
-				<a class="dropdown-toggle" href="https://scratch.mit.edu/discuss"><span><?=wfMessage('scratchwikiskin-discuss')->inLanguage( $wgLang )->escaped()?></span></a>
-				<ul class="dropdown">
-					<li><a href="https://scratch.mit.edu/discuss"><span><?=wfMessage( 'scratchwikiskin-discuss-text' )->inLanguage( $wgLang )->escaped() ?></span></a></li>
-					<li><a href="<?=wfMessage('scratchwikiskin-discuss-wiki')->inLanguage( $wgLang )->escaped()?>"><span><?=wfMessage('scratchwikiskin-discuss-wiki-text')->inLanguage( $wgLang )->escaped()?></span></a></li>
-					<li><a href="<?=Title::newFromText(wfMessage('portal-url')->inContentLanguage()->text())->getLinkURL()?>"><span><?=wfMessage('portal')->inLanguage( $wgLang )->escaped()?></span></a></li>
-				</ul>
-			</li>
-			<li class="link tips">
-				<a class="dropdown-toggle" href="https://scratch.mit.edu/ideas"><span><?=wfMessage('scratchwikiskin-ideas')->inLanguage( $wgLang )->escaped()?></span></a>
-				<ul class="dropdown">
-					<li><a href="https://scratch.mit.edu/ideas"><span><?=wfMessage( 'scratchwikiskin-ideas-text' )->inLanguage( $wgLang )->escaped() ?></span></a></li>
-					<li><a href="<?=Title::newFromText(wfMessage('scratchwikiskin-faq-page-url')->inContentLanguage()->text())->getLinkURL()?>"><span><?=wfMessage('scratchwikiskin-faq-page')->inLanguage( $wgLang )->escaped()?></span></a></li>
-				</ul>
-			</li>
+<?php
+// Project-specific top-nav: render one item per MediaWiki:Sidebar box (excluding TOOLBOX).
+// Single-link boxes render as a flat link; multi-link boxes render as a dropdown.
+foreach ( $sidebarWithoutToolbox as $sectionKey => $box ) {
+	if ( empty( $box['content'] ) || !is_array( $box['content'] ) ) continue;
+	if ( count( $box['content'] ) === 1 ) {
+		$item = reset( $box['content'] );
+		$href = $item['href'] ?? '#';
+		$external = (bool) preg_match( '#^https?://#', $href );
+?>
 			<li class="link about">
-				<a class="dropdown-toggle" href="https://www.scratchfoundation.org/home"><span><?=wfMessage('scratchwikiskin-about')->inLanguage( $wgLang )->escaped()?></span></a>
+				<a href="<?= htmlspecialchars( $href ) ?>"<?= $external ? ' target="_blank" rel="noopener"' : '' ?>><span><?= htmlspecialchars( $box['header'] ) ?></span></a>
+			</li>
+<?php
+	} else {
+?>
+			<li class="link create">
+				<a class="dropdown-toggle"><span><?= htmlspecialchars( $box['header'] ) ?></span></a>
 				<ul class="dropdown">
-					<li><a href="https://www.scratchfoundation.org/home"><span><?=wfMessage( 'scratchwikiskin-about-text' )->inLanguage( $wgLang )->escaped() ?></span></a></li>
-					<li><a href="<?=Title::newFromText(wfMessage('aboutpage')->inContentLanguage()->text())->getLinkURL()?>"><span><?=wfMessage('aboutsite')->inLanguage( $wgLang )->escaped()?></span></a></li>
+<?php foreach ( $box['content'] as $name => $item ) { ?>
+					<li><a href="<?= htmlspecialchars( $item['href'] ?? '#' ) ?>"><span><?= htmlspecialchars( $item['text'] ?? $name ) ?></span></a></li>
+<?php } ?>
 				</ul>
 			</li>
+<?php
+	}
+}
+?>
 			<li class="search">
 				<form class="form" action="<?php $this->text( 'wgScript' ) ?>" role="search" aria-label="<?=wfMessage( 'scratchwikiskin-search' )->inLanguage( $wgLang )->escaped()?>">
 					<button class="button btn-search" tabindex="-1"></button>
@@ -139,6 +134,7 @@ if (ExtensionRegistry::getInstance()->isLoaded("Echo") && $user->isRegistered())
 <?php foreach ($this->data['content_actions'] as $key => $tab) { ?>
 					<?=$this->getSkin()->makeListItem($key, $tab)?>
 <?php } ?>
+					<li><a href="/Wiki_Editing"><span><?= wfMessage( 'sng-wikieditguide' )->inLanguage( $wgLang )->escaped() ?></span></a></li>
 				</ul>
 			</li>
 			<li class="link right account-nav">
@@ -153,6 +149,13 @@ if (ExtensionRegistry::getInstance()->isLoaded("Echo") && $user->isRegistered())
 	</div>
 </div>
 <div id="not-nav">
+<div class="logoheader">
+	<div class="logopart">
+		<a href="<?= htmlspecialchars( $this->data['nav_urls']['mainpage']['href'] ) ?>" title="<?= wfMessage( 'mainpage' )->inLanguage( $wgLang )->escaped() ?>">
+			<img src="<?= htmlspecialchars( $this->get( 'stylepath' ) . '/' . $this->getSkin()->stylename . '/resources/logo.png' ) ?>" style="height:150px;" alt="<?= wfMessage( 'sitetitle' )->inContentLanguage()->escaped() ?>">
+		</a>
+	</div>
+</div>
 <div id="view">
 	<div class="splash">
 		<div class="inner mod-splash">
@@ -233,47 +236,20 @@ $line = wfMessage('scratchwikiskin-dark-theme-feedback')->rawParams( $link )->in
 </div>
 <div id="footer" role="contentinfo">
 	<div class="inner">
+		<div class="lists" style="font-weight:bold;margin-bottom:10px">
+			<span><a href="https://discord.gg/wqRBSytTmP"><?= wfMessage( 'sng-footer-discord-cta' )->inLanguage( $wgLang )->escaped() ?></a></span>
+		</div>
 		<div class="lists">
-			<dl class="about">
-				<dt><span><?=wfMessage('scratchwikiskin-footer-about-title')->inLanguage( $wgLang )->escaped()?></span></dt>
-<dd><span><a href="https://www.scratchfoundation.org/home"><?=wfMessage('scratchwikiskin-footer-about')->inLanguage( $wgLang )->escaped()?></a></span></dd>
-<dd><span><a href="<?=Title::newFromText(wfMessage('aboutpage')->inContentLanguage()->text())->getLinkURL()?>"><?=wfMessage('aboutsite')->inLanguage( $wgLang )->escaped()?></a></span></dd>
-<dd><span><a href="https://www.scratchfoundation.org/learn/for-families"><?=wfMessage('scratchwikiskin-footer-parents')->inLanguage( $wgLang )->escaped()?></a></span></dd>
-<dd><span><a href="https://www.scratchfoundation.org/learn/for-educators"><?=wfMessage('scratchwikiskin-footer-educators')->inLanguage( $wgLang )->escaped()?></a></span></dd>
-<dd><span><a href="https://scratch.mit.edu/developers/"><?=wfMessage('scratchwikiskin-footer-developers')->inLanguage( $wgLang )->escaped()?></a></span></dd>
-<dd><span><a href="https://scratch.mit.edu/credits"><?=wfMessage('scratchwikiskin-footer-credits')->inLanguage( $wgLang )->escaped()?></a></span></dd>
-<dd><span><a href="https://www.scratchfoundation.org/get-involved/supporters"><?=wfMessage('scratchwikiskin-footer-donors')->inLanguage( $wgLang )->escaped()?></a></span></dd>
-<dd><span><a href="https://www.scratchfoundation.org/careers"><?=wfMessage('scratchwikiskin-footer-jobs')->inLanguage( $wgLang )->escaped()?></a></span></dd>
-<dd><span><a href="https://www.scratchfoundation.org/donate"><?=wfMessage('scratchwikiskin-footer-donate')->inLanguage( $wgLang )->escaped()?></a></span></dd>
-			</dl>
-			<dl class="community">
-				<dt><span><?=wfMessage('scratchwikiskin-footer-community-title')->inLanguage( $wgLang )->escaped()?></span></dt>
-<dd><span><a href="https://scratch.mit.edu/community_guidelines"><?=wfMessage('scratchwikiskin-footer-cgs')->inLanguage( $wgLang )->escaped()?></a></span></dd>
-<dd><span><a href="https://scratch.mit.edu/discuss/"><?=wfMessage('scratchwikiskin-footer-discuss')->inLanguage( $wgLang )->escaped()?></a></span></dd>
-<dd><span><a href="https://en.scratch-wiki.info"><?=wfMessage('scratchwikiskin-footer-wiki')->inLanguage( $wgLang )->escaped()?></a></span></dd>
-<dd><span><a href="https://scratch.mit.edu/statistics/"><?=wfMessage('scratchwikiskin-footer-stats')->inLanguage( $wgLang )->escaped()?></a></span></dd>
-<dd><span><a href="<?=Title::newFromText(wfMessage('portal-url')->inContentLanguage()->text())->getLinkURL()?>"><?=wfMessage('portal')->inLanguage( $wgLang )->escaped()?></a></span></dd>
-			</dl>
-			<dl class="support">
-				<dt><span><?=wfMessage('scratchwikiskin-footer-resources-title')->inLanguage( $wgLang )->escaped()?></span></dt>
-<dd><span><a href="<?=Title::newFromText(wfMessage('scratchwikiskin-footer-help-page-url')->inContentLanguage()->text())->getLinkURL()?>"><?=wfMessage('scratchwikiskin-footer-help')->inLanguage( $wgLang )->escaped()?></a></span></dd>
-<dd><span><a href="https://scratch.mit.edu/ideas"><?=wfMessage('scratchwikiskin-footer-ideas')->inLanguage( $wgLang )->escaped()?></a></span></dd>
-<dd><span><a href="<?=Title::newFromText(wfMessage('scratchwikiskin-faq-page-url')->inContentLanguage()->text())->getLinkURL()?>"><?=wfMessage('scratchwikiskin-faq-page')->inLanguage( $wgLang )->escaped()?></a></span></dd>
-<dd><span><a href="https://scratch.mit.edu/download"><?=wfMessage('scratchwikiskin-footer-scratch-app')->inLanguage( $wgLang )->escaped()?></a></span></dd>
-			</dl>
-			<dl class="legal">
-				<dt><span><?=wfMessage('scratchwikiskin-footer-legal-title')->inLanguage( $wgLang )->escaped()?></span></dt>
-<dd><span><a href="<?=Title::newFromText(wfMessage('privacypage')->inContentLanguage()->text())->getLinkURL()?>"><?=wfMessage('privacy')->inLanguage( $wgLang )->escaped()?></a></span></dd>
-<dd><span><a href="<?=Title::newFromText(wfMessage('disclaimerpage')->inContentLanguage()->text())->getLinkURL()?>"><?=wfMessage('disclaimers')->inLanguage( $wgLang )->escaped()?></a></span></dd>
-			</dl>
-			<dl class="family">
-				<dt><span><?=wfMessage('scratchwikiskin-footer-family-title')->inLanguage( $wgLang )->escaped()?></span></dt>
-<dd><span><a href="https://scratch.mit.edu"><?=wfMessage('scratchwikiskin-footer-scratchsite')->inLanguage( $wgLang )->escaped()?></a></span></dd>
-<dd><span><a href="https://www.scratchjr.org"><?=wfMessage('scratchwikiskin-footer-scratchjr')->inLanguage( $wgLang )->escaped()?></a></span></dd>
-<dd><span><a href="https://www.scratchfoundation.org/get-involved/events"><?=wfMessage('scratchwikiskin-footer-events')->inLanguage( $wgLang )->escaped()?></a></span></dd>
-<dd><span><a href="https://www.scratchfoundation.org"><?=wfMessage('scratchwikiskin-footer-foundation')->inLanguage( $wgLang )->escaped()?></a></span></dd>
-<dd><span><a href="https://www.scratchfoundation.org/shop"><?=wfMessage('scratchwikiskin-footer-store')->inLanguage( $wgLang )->escaped()?></a></span></dd>
-			</dl>
+			<span>
+				<a href="/"><?= wfMessage( 'sng-footer-wiki-home' )->inLanguage( $wgLang )->escaped() ?></a> |
+				<a href="https://www.youtube.com/channel/UCpTRuIbbXl0C3503l-GT7Ug">YouTube</a> |
+				<a href="https://discord.spellsandguns.com">Discord</a> |
+				<a href="/About"><?= wfMessage( 'sng-footer-about-wiki' )->inLanguage( $wgLang )->escaped() ?></a> |
+				<a href="https://spellsandguns.com/"><?= wfMessage( 'sng-footer-gaming-wikis' )->inLanguage( $wgLang )->escaped() ?></a> |
+				<a href="/Term_of_Use"><?= wfMessage( 'sng-footer-terms-of-use' )->inLanguage( $wgLang )->escaped() ?></a> |
+				<a href="https://creativecommons.org/licenses/by-sa/4.0/"><?= wfMessage( 'sng-footer-copyright-policy' )->inLanguage( $wgLang )->escaped() ?></a> |
+				<a href="/Special:RecentChanges"><?= wfMessage( 'recentchanges' )->inLanguage( $wgLang )->escaped() ?></a>
+			</span>
 		</div>
 	</div>
 </div><?php if (date('m j') == '04 1') { ?><div style="background-color:white;color:black">;</div><?php } ?>
