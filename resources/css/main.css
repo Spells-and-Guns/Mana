@@ -973,7 +973,7 @@ dl dt {
     overflow-wrap: break-word;
 }
 
-#mw-input-wpscratchwikiskin-header-color {
+#mw-input-wpsng-header-color {
     font-family: monospace;
 }
 
@@ -995,4 +995,606 @@ dl dt {
 }
 .ve-ui-context-menu.ve-ui-desktopContext-menu {
     position: initial;
+}
+
+/* ============================================================
+   SPELLS AND GUNS CUSTOMIZATIONS
+   Project-specific overrides layered on top of the upstream
+   stylesheet. Variables, fonts, dark theming, custom cursors,
+   game-template helpers (itembox / rarity / line / iconbox),
+   and references to the custom branding assets bundled in
+   resources/.
+   ============================================================ */
+
+:root {
+    --font-color: 238, 238, 238;
+    --link-hover-color: 241, 185, 62, 1;
+    --link-color: 231, 159, 52, 0.9;
+    --link-visited-color: 221, 149, 42, 0.8;
+    --nolink-color: 120, 120, 120, 1;
+    --nolink-visited-color: 90, 90, 90, 1;
+    --rarity-0: 50, 50, 50;
+    --rarity-1: 100, 100, 100;
+    --rarity-2: 222, 222, 222;
+    --rarity-3: 98, 190, 11;
+    --rarity-4: 74, 155, 209;
+    --rarity-5: 173, 90, 255;
+    --rarity-6: 247, 162, 45;
+    --rarity-7: 227, 216, 140;
+    --line-edge: 0, 0, 0;
+    --line-middle: 255, 255, 255;
+    --background-color: 0, 0, 0;
+    --background-hover-color: 238, 238, 238;
+    --font-family: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+/* Bundled fonts */
+
+@font-face {
+    font-family: "Segoe UI";
+    font-weight: 200;
+    src: url("../Segoe UI Light.ttf");
+}
+@font-face {
+    font-family: "Segoe UI";
+    font-weight: 300;
+    src: url("../Segoe UI Semilight.ttf");
+}
+@font-face {
+    font-family: "Segoe UI";
+    font-weight: 400;
+    src: url("../Segoe UI.ttf");
+}
+@font-face {
+    font-family: "Segoe UI";
+    font-weight: 500;
+    src: url("../Segoe UI Semibold.ttf");
+}
+@font-face {
+    font-family: "Segoe UI";
+    font-weight: 600;
+    src: url("../Segoe UI Semibold.ttf");
+}
+@font-face {
+    font-family: "Segoe UI";
+    font-weight: 700;
+    src: url("../Segoe UI Bold.ttf");
+}
+@font-face {
+    font-family: "Segoe UI";
+    font-style: italic;
+    font-weight: 400;
+    src: url("../Segoe UI Italic.ttf");
+}
+@font-face {
+    font-family: "Segoe UI";
+    font-style: italic;
+    font-weight: 700;
+    src: url("../Segoe UI Bold Italic.ttf");
+}
+@font-face {
+    font-family: "NocturneSerif";
+    src: url("../NocturneSerif-Regular.ttf");
+}
+
+/* Background, body, custom cursors */
+
+html,
+body {
+    background-color: #1F263F;
+    background-image: url("../background.webp");
+    color: #575e75;
+    font-family: var(--font-family);
+    cursor: url("../custom-cursor.webp") 4 4, auto;
+}
+
+/* Typography overrides */
+
+h1, h2, h3, h4, h5 {
+    font-family: var(--font-family);
+}
+
+h1 {
+    color: #CCE2F2;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+h2 {
+    color: #CCE2F2;
+}
+
+h3, h4, h5 {
+    color: #eee;
+}
+
+h4 {
+    font-weight: normal;
+}
+
+p {
+    color: #eee;
+}
+
+.box-content {
+    font-size: 16px;
+}
+
+/* Link colors + cursor */
+
+a {
+    cursor: url("../custom-cursorlink.webp") 4 4, auto;
+    color: rgb(var(--link-color));
+}
+
+a:link,
+a:visited,
+a:active {
+    color: rgb(var(--link-color));
+}
+
+#content a.new:hover,
+#content a.stub:hover,
+#content a:hover {
+    color: rgb(var(--link-hover-color)) !important;
+    text-decoration: underline;
+}
+
+#content a:visited {
+    color: rgb(var(--link-visited-color));
+}
+
+#content a.new,
+#content a.stub {
+    color: rgb(var(--nolink-color));
+}
+
+#content a.new:visited,
+#content a.stub:visited {
+    color: rgb(var(--nolink-visited-color));
+}
+
+/* Wiki core / OOUI tweaks */
+
+.oo-ui-popupWidget-body,
+.oo-ui-clippableElement-clippable {
+    min-height: 5em;
+}
+
+.oo-ui-popupWidget-body {
+    color: #000;
+}
+
+.oo-ui-popupWidget-popup {
+    height: auto !important;
+}
+
+.oo-ui-windowManager-modal,
+.oo-ui-windowManager-floating > .oo-ui-dialog > .oo-ui-window-frame {
+    top: 5em;
+}
+
+.diffchange {
+    background: #3377b1 !important;
+}
+
+.mw-datatable td {
+    background-color: rgba(var(--background-color), 0.3);
+}
+
+.mw-datatable tr:hover td {
+    background-color: rgba(var(--background-hover-color), 0.2);
+}
+
+.mw-changeslist-legend {
+    background-color: rgba(var(--background-color), 0.3) !important;
+}
+
+.toctogglelabel {
+    color: rgb(var(--link-color));
+}
+
+.tocnumber,
+.toc {
+    color: #eee;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.mw-hidden-catlinks {
+    display: none;
+}
+
+#mw-searchoptions {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Extension: CommentStream */
+
+.cs-comment,
+.cs-head-comment,
+input,
+textarea,
+.oo-ui-buttonElement-framed,
+.oo-ui-widget-enabled .oo-ui-buttonElement-button,
+.oo-ui-buttonElement-framed.oo-ui-widget-disabled > .oo-ui-buttonElement-button,
+.cs-edit-box,
+.cs-head-comment > .cs-comment-header,
+.cs-title-edit-field,
+.cs-body-edit-field,
+.cs-reply-comment > .cs-comment-header {
+    border-color: #ffffff !important;
+    color: rgb(var(--font-color)) !important;
+    background-color: rgba(50, 50, 50, 0.5) !important;
+}
+
+.cs-comment,
+.cs-head-comment {
+    border: 1px solid;
+}
+
+.cs-comment-header {
+    background-color: rgba(10, 10, 10, 0.5) !important;
+}
+
+.cs-stream-footer {
+    margin-top: 10px;
+}
+
+.cs-comment-body {
+    margin-left: 15px;
+}
+
+/* Extension: Tabber */
+
+.tabber {
+    padding: 20px;
+}
+
+/* Dark wikitable + content overrides */
+
+#content {
+    font-family: var(--font-family);
+    color: rgb(var(--font-color), 1);
+}
+
+#content .wikitable {
+    background: transparent;
+    color: #eee;
+    font-size: min(max(1vw, 10px), 16px);
+}
+
+#content .wikitable th,
+#content .wikitable caption {
+    font-weight: bold;
+    background-color: rgba(220, 220, 220, 0.2);
+    text-align: center;
+    vertical-align: middle;
+}
+
+#content .wikitable caption,
+#content .wikitable td,
+#content .wikitable th {
+    border: 1px solid #a2a9b1;
+    color: #eee;
+    border-spacing: 0;
+    padding: 5px;
+}
+
+#content code,
+#content pre {
+    background-color: rgb(12, 15, 17);
+    color: rgb(248, 245, 242);
+    border-color: rgb(42, 48, 50);
+}
+
+#content h1,
+#content h2 {
+    border-color: #444;
+}
+
+#content h1,
+#content h2,
+#content h3,
+#content h4,
+#content h5 {
+    margin-top: 1em;
+    color: #eee;
+}
+
+#content hr {
+    height: 2px;
+    color: #eee;
+    border: 0;
+    margin: 0.2em 0;
+}
+
+/* Box overrides for darker backdrop */
+
+.box,
+.box .box-header {
+    border-color: #444;
+}
+
+.box {
+    background-color: rgba(25, 29, 36, 0.7);
+}
+
+.box .box-header {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px 20px;
+}
+
+.right .box .box-content {
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 8px 3%;
+}
+
+.box-content h3 {
+    font-size: 18px;
+}
+
+.tableheader {
+    font-weight: bold;
+    background-color: rgba(220, 220, 220, 0.2);
+}
+
+/* Game template helpers (itembox, weaponset-box, line, rarity, iconbox) */
+
+.itembox {
+    width: 300px;
+    background-color: rgba(var(--background-color), 0.3);
+    border: 2px solid rgba(var(--font-color), 0.5);
+    padding: 16px;
+    margin-left: 20px;
+}
+
+.weaponset-box {
+    width: 300px;
+    background-color: rgba(var(--background-color), 0.3);
+    border: 2px solid rgba(var(--font-color), 0.5);
+    padding: 16px;
+}
+
+.itemboxheader {
+    width: 100%;
+    margin: 0;
+    display: inline-block;
+}
+
+.stats-container {
+    clear: both;
+    padding: 0 0 0 20px;
+}
+
+.line {
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 1px;
+    background-image: linear-gradient(to right, rgb(var(--line-edge)), rgb(var(--line-middle)), rgb(var(--line-edge)));
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.relative {
+    position: relative;
+    display: inline-block;
+}
+
+.iconbox {
+    vertical-align: top;
+    text-align: center;
+    max-width: 75%;
+    display: inline-block;
+    margin: 4px;
+}
+
+.iconamount {
+    position: absolute;
+    bottom: -4px;
+    right: 2px;
+    color: rgb(var(--font-color));
+    font-size: 150%;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    display: inline-block;
+}
+
+.rounded {
+    border-radius: 0.25rem !important;
+}
+
+.bold {
+    font-weight: 900;
+}
+
+.colorrarity0 { color: rgb(var(--rarity-0)); }
+.colorrarity1 { color: rgb(var(--rarity-1)); }
+.colorrarity2 { color: rgb(var(--rarity-2)); }
+.colorrarity3 { color: rgb(var(--rarity-3)); }
+.colorrarity4 { color: rgb(var(--rarity-4)); }
+.colorrarity5 { color: rgb(var(--rarity-5)); }
+.colorrarity6 { color: rgb(var(--rarity-6)); }
+.colorrarity7 { color: rgb(var(--rarity-7)); }
+
+.rarity00 {
+    border: 1px solid rgba(var(--rarity-1), 0.5);
+}
+.rarity0 {
+    border: 1px solid rgba(var(--rarity-0), 0.5);
+    background: linear-gradient(360deg, rgba(var(--rarity-0), 0.5), rgba(0, 0, 0, 0.5));
+}
+.rarity1 {
+    border: 1px solid rgba(var(--rarity-1), 0.5);
+    background: linear-gradient(360deg, rgba(var(--rarity-1), 0.5), rgba(0, 0, 0, 0.5));
+}
+.rarity2 {
+    border: 1px solid rgba(var(--rarity-2), 0.5);
+    background: linear-gradient(360deg, rgba(var(--rarity-2), 0.5), rgba(0, 0, 0, 0.5));
+}
+.rarity3 {
+    border: 1px solid rgba(var(--rarity-3), 0.5);
+    background: linear-gradient(360deg, rgba(var(--rarity-3), 0.5), rgba(0, 0, 0, 0.5));
+}
+.rarity4 {
+    border: 1px solid rgba(var(--rarity-4), 0.5);
+    background: linear-gradient(360deg, rgba(var(--rarity-4), 0.5), rgba(0, 0, 0, 0.5));
+}
+.rarity5 {
+    border: 1px solid rgba(var(--rarity-5), 0.5);
+    background: linear-gradient(360deg, rgba(var(--rarity-5), 0.5), rgba(0, 0, 0, 0.5));
+}
+.rarity6 {
+    border: 1px solid rgba(var(--rarity-6), 0.5);
+    background: linear-gradient(360deg, rgba(var(--rarity-6), 0.5), rgba(0, 0, 0, 0.5));
+}
+.rarity7 {
+    border: 1px solid rgba(var(--rarity-7), 0.5);
+    background: linear-gradient(360deg, rgba(var(--rarity-7), 0.5), rgba(0, 0, 0, 0.5));
+}
+
+.iboximg {
+    width: 6vw;
+    height: auto;
+}
+
+/* Editor fixes */
+
+.cm-mw-accessible-colors .cm-mw-link-pagename,
+.cm-mw-accessible-colors .cm-mw-link-bracket,
+.cm-mw-accessible-colors .cm-mw-link-delimiter,
+.cm-mw-accessible-colors .cm-mw-extlink,
+.cm-mw-accessible-colors .cm-mw-free-extlink,
+.cm-mw-accessible-colors .cm-mw-extlink-protocol,
+.cm-mw-accessible-colors .cm-mw-free-extlink-protocol,
+.cm-mw-accessible-colors .cm-mw-extlink-bracket {
+    color: #ff8e3a !important;
+}
+
+div.ve-ce-branchNode {
+    background: rgba(0, 0, 0, 0) !important;
+}
+
+.wikiEditor-ui .wikiEditor-ui-text textarea {
+    background: #141414;
+    color: cadetblue;
+}
+
+.oo-ui-buttonElement-frameless.oo-ui-widget-enabled > .oo-ui-buttonElement-button {
+    color: white;
+}
+
+.ve-init-target-visual {
+    min-height: 300px;
+}
+
+/* Sticky editor toolbar; hide custom logoheader during VE editing */
+
+.ve-activated #content {
+    max-height: 80vh;
+    padding-top: 0;
+    position: relative;
+}
+
+.ve-ui-toolbar {
+    position: sticky !important;
+    top: 0;
+    z-index: 7; /* one below nav dropdowns (8) */
+}
+
+html.ve-activated.ve-active .logoheader {
+    display: none;
+}
+
+/* Custom logo header (rendered by the customized template) */
+
+.logoheader {
+    margin: 0;
+    height: 203px;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.logopart {
+    position: static;
+    margin: auto;
+    min-width: 154px;
+    width: 1%;
+    align-items: center;
+    justify-content: center;
+}
+
+.wikilogo {
+    height: 50px;
+    display: block;
+}
+
+/* Layout overrides: stretch content area, dark backdrop on #not-nav */
+
+#not-nav {
+    width: 100%;
+    background-image: url("../background.webp");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+#view {
+    padding: 0 50px;
+}
+
+#view .right {
+    width: 100%;
+    margin: auto;
+    padding: 1px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Footer: dark, centered, vertical stack */
+
+#footer {
+    margin: 0 auto;
+    border: 1px solid black;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 20px 0;
+    width: 100%;
+    position: relative;
+    margin-top: auto;
+}
+
+#footer .lists {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    margin-left: 0;
+    width: 100%;
+}
+
+#footer .lists > ul {
+    display: flex;
+    margin: 10px 0 0 0;
+    padding-left: 0;
+}
+
+#footer .lists > ul li {
+    list-style: none;
+    margin-left: 5px;
+    padding-left: 0;
+}
+
+#footer .lists > ul li:after {
+    color: grey;
+    content: "|";
+    margin-left: 5px;
+}
+
+/* Splash variant: full-width content layout */
+
+.inner.mod-splash {
+    margin-top: 20px;
+    margin-left: 0;
+    max-width: 100%;
+    width: 100%;
 }
