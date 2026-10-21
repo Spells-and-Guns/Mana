@@ -1,14 +1,18 @@
-This is the default skin for the various Scratch Wikis.
+# Mana
+
+The skin of the Spells and Guns wikis. It started as a fork of
+[ScratchWikiSkin2](https://github.com/InternationalScratchWiki/ScratchWikiSkin2),
+the Scratch Wikis' skin; skin.json keeps its original authors and CREDITS its attributions.
 
 ## Installation
-1. Download the contents of this repository and save them into $wgScriptPath/skins/ScratchWikiSkin2 (a new directory)
+1. Save the contents of this repository into `skins/Mana` (a new directory).
 2. Add the following line to LocalSettings.php:
 ```
-wfLoadSkin( 'ScratchWikiSkin2' );
+wfLoadSkin( 'Mana' );
 ```
-3. If desired, set $wgDefaultSkin as follows:
+3. If desired, make it the default skin:
 ```
-$wgDefaultSkin = 'scratchwikiskin2';
+$wgDefaultSkin = 'mana';
 ```
 
 ## Customizing per wiki
@@ -20,25 +24,25 @@ after `wfLoadSkin`. Nothing in the skin folder has to change.
 // Colors: any variable from the :root block in resources/css/main.css.
 // The older ones (font-color, link-*, rarity-*, …) are "R, G, B[, A]" triplets;
 // page-color, nav-color, heading-color and box-color are normal CSS colors.
-$wgSWS2Colors = [
+$wgManaColors = [
 	'link-color' => '255, 247, 0, 0.9',
 	'link-hover-color' => '255, 247, 0, 1',
 	'nav-color' => '#2a1f3f',
 ];
 
 // Images (any URL; put wiki-specific files under images/ or resources/).
-$wgSWS2Background = "$wgResourceBasePath/resources/background.jpg";
-$wgSWS2HeaderLogo = "$wgResourceBasePath/resources/logo.png"; // false hides the big logo
+$wgManaBackground = "$wgResourceBasePath/resources/background.jpg";
+$wgManaHeaderLogo = "$wgResourceBasePath/resources/logo.png"; // false hides the big logo
 $wgLogos['wordmark'] = [ 'src' => "$wgResourceBasePath/resources/sng-logo.png", 'width' => 70, 'height' => 70 ]; // navbar logo
-$wgSWS2Cursor = "$wgResourceBasePath/resources/custom-cursor.webp";        // optional
-$wgSWS2CursorLink = "$wgResourceBasePath/resources/custom-cursorlink.webp"; // optional
+$wgManaCursor = "$wgResourceBasePath/resources/custom-cursor.webp";        // optional
+$wgManaCursorLink = "$wgResourceBasePath/resources/custom-cursorlink.webp"; // optional
 
 // Links. Labels are message keys (translated, editable at MediaWiki:<key>) or plain text;
 // targets are URLs, /paths or page names. Setting a list replaces the default one.
-$wgSWS2NavLogoLink = 'https://www.spellsandguns.com/';
-$wgSWS2EditGuide = 'Wiki_Editing'; // '' hides it
-$wgSWS2FooterBanner = [ 'sng-footer-discord-cta' => 'https://discord.gg/wqRBSytTmP' ]; // [] hides it
-$wgSWS2FooterLinks = [
+$wgManaNavLogoLink = 'https://www.spellsandguns.com/';
+$wgManaEditGuide = 'Wiki_Editing'; // '' hides it
+$wgManaFooterBanner = [ 'sng-footer-discord-cta' => 'https://discord.gg/wqRBSytTmP' ]; // [] hides it
+$wgManaFooterLinks = [
 	'sng-footer-wiki-home' => '/',
 	'Discord' => 'https://discord.spellsandguns.com',
 	'sng-footer-terms-of-use' => 'Terms_of_Use',
@@ -48,7 +52,7 @@ $wgSWS2FooterLinks = [
 
 The top navigation bar is built from the wiki's `MediaWiki:Sidebar` page: a section
 with one link becomes a plain link, a section with several becomes a dropdown.
-Header logo size: `$wgSWS2Colors['header-logo-height'] = '200px';`
+Header logo size: `$wgManaColors['header-logo-height'] = '200px';`
 
 All the text (footer labels, "Help the {{SITENAME}}!", …) comes from interface
 messages, so it can also be changed on the wiki itself under `MediaWiki:<message key>`.

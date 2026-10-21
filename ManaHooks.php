@@ -44,7 +44,7 @@ class HTMLColorField extends HTMLFormField {
     }
 }
 
-class ScratchWikiSkinHooks implements OutputPageBodyAttributesHook, GetPreferencesHook {
+class ManaHooks implements OutputPageBodyAttributesHook, GetPreferencesHook {
     private $userOptionsLookup;
 
     public function __construct(UserOptionsLookup $userOptionsLookup) {
@@ -52,9 +52,9 @@ class ScratchWikiSkinHooks implements OutputPageBodyAttributesHook, GetPreferenc
     }
 
     public function onOutputPageBodyAttributes($out, $sk, &$bodyAttrs): void {
-        global $wgSWS2ForceDarkTheme;
+        global $wgManaForceDarkTheme;
         $user = RequestContext::getMain()->getUser();
-        if ($this->userOptionsLookup->getOption($user, DARK_THEME_PREF) || $wgSWS2ForceDarkTheme) {
+        if ($this->userOptionsLookup->getOption($user, DARK_THEME_PREF) || $wgManaForceDarkTheme) {
             $bodyAttrs['class'] .= ' dark-theme';
         }
     }
@@ -69,13 +69,13 @@ class ScratchWikiSkinHooks implements OutputPageBodyAttributesHook, GetPreferenc
             'section' => 'rendering/skin',
             // Only expose background color preference when the skin is selected
             'default' => ($origpref ? $origpref : '#7953c4'),
-            'hide-if' => ['!==', 'wpskin', 'scratchwikiskin2'],
+            'hide-if' => ['!==', 'wpskin', 'mana'],
         ];
         $preferences[DARK_THEME_PREF] = [
             'type' => 'check',
             'label-message' => 'sng-pref-dark',
             'section' => 'rendering/skin',
-            'hide-if' => ['!==', 'wpskin', 'scratchwikiskin2'],
+            'hide-if' => ['!==', 'wpskin', 'mana'],
         ];
     }
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * BaseTemplate class for ScratchWikiSkin
+ * BaseTemplate class for Mana
  *
  * @file
  * @ingroup Skins
@@ -10,9 +10,9 @@ use MediaWiki\MediaWikiServices;
 
 require_once __DIR__ . '/consts.php';
 
-class ScratchWikiSkinTemplate extends BaseTemplate {
+class ManaTemplate extends BaseTemplate {
 	public function execute() {
-		global $wgRightsPage, $wgRightsUrl, $wgRightsIcon, $wgRightsText, $wgLang, $wgSWS2JoinBox;
+		global $wgRightsPage, $wgRightsUrl, $wgRightsIcon, $wgRightsText, $wgLang, $wgManaJoinBox;
 		$user = RequestContext::getMain()->getUser();
 		$config = $this->getSkin()->getConfig();
 		$pre139 = version_compare( MW_VERSION, '1.39', '<' );
@@ -37,8 +37,8 @@ unset( $sidebarWithoutToolbox['TOOLBOX'] );
 <div id="navigation" role="banner">
 	<div class="inner">
 		<ul>
-			<li class="link"><a class="jump-to" href="#logo" tabindex="0"><span><?=wfMessage('scratchwikiskin-jump-to-sidebar')->escaped()?></span></a></li>
-			<li class="link"><a class="jump-to" href="#firstHeading" tabindex="1"><span><?=wfMessage('scratchwikiskin-jump-to-content')->escaped()?></span></a></li>
+			<li class="link"><a class="jump-to" href="#logo" tabindex="0"><span><?=wfMessage('mana-jump-to-sidebar')->escaped()?></span></a></li>
+			<li class="link"><a class="jump-to" href="#firstHeading" tabindex="1"><span><?=wfMessage('mana-jump-to-content')->escaped()?></span></a></li>
 			<li class="link menu">
 				<a class="dropdown-toggle" aria-label="<?=wfMessage( 'sng-menu' )->escaped()?>"></a>
 				<ul class="dropdown">
@@ -60,7 +60,7 @@ foreach ( $sidebarWithoutToolbox as $box ) {
 ?>
 				</ul>
 			</li>
-			<li class="logo"><a aria-label="<?=wfMessage( 'sng-nav-logo-label' )->escaped()?>" href="<?=htmlspecialchars( $config->get( 'SWS2NavLogoLink' ) ?: $this->data['nav_urls']['mainpage']['href'] )?>">
+			<li class="logo"><a aria-label="<?=wfMessage( 'sng-nav-logo-label' )->escaped()?>" href="<?=htmlspecialchars( $config->get( 'ManaNavLogoLink' ) ?: $this->data['nav_urls']['mainpage']['href'] )?>">
 				<img alt="<?=wfMessage('sitetitle')->inContentLanguage()->escaped()?>" src="<?=htmlspecialchars($wordmark) ?>" height="<?= $wordmarkH ?>" width="<?= $wordmarkW ?>">
 			</a></li>
 <?php
@@ -92,7 +92,7 @@ foreach ( $sidebarWithoutToolbox as $sectionKey => $box ) {
 }
 ?>
 			<li class="search">
-				<form class="form" action="<?php $this->text( 'wgScript' ) ?>" role="search" aria-label="<?=wfMessage( 'scratchwikiskin-search' )->inLanguage( $wgLang )->escaped()?>">
+				<form class="form" action="<?php $this->text( 'wgScript' ) ?>" role="search" aria-label="<?=wfMessage( 'mana-search' )->inLanguage( $wgLang )->escaped()?>">
 					<button class="button btn-search" tabindex="-1"></button>
 					<div class="form-group row no-label">
 						<div class="col-sm-9">
@@ -100,11 +100,11 @@ foreach ( $sidebarWithoutToolbox as $sectionKey => $box ) {
 								type="text" class="input" id="searchInput"
 								accesskey="<?=wfMessage( 'accesskey-search' )->inLanguage( $wgLang )->escaped() ?>"
 								title="<?=wfMessage(
-									'scratchwikiskin-search-title',
+									'mana-search-title',
 									wfMessage( 'accesskey-search' )->inLanguage( $wgLang )->text()
 								)->inLanguage( $wgLang )->escaped()?>"
 								name="search" autocomplete="off"
-								placeholder="<?=wfMessage( 'scratchwikiskin-search' )->inLanguage( $wgLang )->escaped() ?>"
+								placeholder="<?=wfMessage( 'mana-search' )->inLanguage( $wgLang )->escaped() ?>"
 							/>
 							<input type="hidden" value="<?=SpecialPage::getTitleFor( 'Search' )->getPrefixedDBkey()?>" name="title" />
 						</div>
@@ -150,14 +150,14 @@ if (ExtensionRegistry::getInstance()->isLoaded("Echo") && $user->isRegistered())
 <?php foreach ($this->data['content_actions'] as $key => $tab) { ?>
 					<?=$this->getSkin()->makeListItem($key, $tab)?>
 <?php } ?>
-<?php if ( $config->get( 'SWS2EditGuide' ) ) { ?>
-					<li><a href="<?= htmlspecialchars( $this->linkHref( $config->get( 'SWS2EditGuide' ) ) ) ?>"><span><?= wfMessage( 'sng-wikieditguide' )->inLanguage( $wgLang )->escaped() ?></span></a></li>
+<?php if ( $config->get( 'ManaEditGuide' ) ) { ?>
+					<li><a href="<?= htmlspecialchars( $this->linkHref( $config->get( 'ManaEditGuide' ) ) ) ?>"><span><?= wfMessage( 'sng-wikieditguide' )->inLanguage( $wgLang )->escaped() ?></span></a></li>
 <?php } ?>
 				</ul>
 			</li>
 			<li class="link right account-nav">
 				<a class="dropdown-toggle" href="<?php if (!$user->isRegistered()) { ?><?=SpecialPage::getTitleFor( 'UserLogin' )->getLinkURL() ?><?php } else { ?><?=$user->getUserPage()->getLinkURL()?><?php } ?>">
-					<span class="profile-name"><?php if (!$user->isRegistered()) { ?><?=wfMessage( 'scratchwikiskin-notloggedin' )->inLanguage( $wgLang )->escaped()?><?php } else { ?><?=htmlspecialchars($user->getName())?><?php } ?></span>
+					<span class="profile-name"><?php if (!$user->isRegistered()) { ?><?=wfMessage( 'mana-notloggedin' )->inLanguage( $wgLang )->escaped()?><?php } else { ?><?=htmlspecialchars($user->getName())?><?php } ?></span>
 				</a>
 				<ul class="dropdown">
 				<?=implode($personalUrls)?>
@@ -168,7 +168,7 @@ if (ExtensionRegistry::getInstance()->isLoaded("Echo") && $user->isRegistered())
 </div>
 <div id="not-nav">
 <?php
-$headerLogo = $config->get( 'SWS2HeaderLogo' ) ?? $this->get( 'stylepath' ) . '/' . $this->getSkin()->stylename . '/resources/logo.png';
+$headerLogo = $config->get( 'ManaHeaderLogo' ) ?? $this->get( 'stylepath' ) . '/' . $this->getSkin()->stylename . '/resources/logo.png';
 if ( $headerLogo ) { ?>
 <div class="logoheader">
 	<div class="logopart">
@@ -203,15 +203,15 @@ if ( $headerLogo ) { ?>
 					</div>
 				</div>
 <?php }
-if (!$user->isRegistered() && $wgSWS2JoinBox) { ?>
-				<div class="box" role="complementary" aria-label="<?=wfMessage( 'scratchwikiskin-helpthewiki' )->inLanguage( $wgLang )->escaped()?>">
+if (!$user->isRegistered() && $wgManaJoinBox) { ?>
+				<div class="box" role="complementary" aria-label="<?=wfMessage( 'mana-helpthewiki' )->inLanguage( $wgLang )->escaped()?>">
 					<div class="box-header">
-						<h4><?=wfMessage( 'scratchwikiskin-helpthewiki' )->inLanguage( $wgLang )->escaped()?></h4>
+						<h4><?=wfMessage( 'mana-helpthewiki' )->inLanguage( $wgLang )->escaped()?></h4>
 					</div>
 					<div class="box-content">
-						<p><?=wfMessage( 'scratchwikiskin-madeforscratchers')->inLanguage( $wgLang )->parse()?></p>
-						<p><a href="<?=Title::newFromText(wfMessage( 'scratchwikiskin-becomeacontributor-page' )->inContentLanguage()->text())->getLinkURL()?>"><?=wfMessage( 'scratchwikiskin-learnaboutjoining' )->inLanguage( $wgLang )->escaped()?></a></p>
-						<p><a href="<?=Title::newFromText(wfMessage( 'portal-url' )->inContentLanguage()->text())->getLinkURL()?>"><?=wfMessage( 'scratchwikiskin-seeportal' )->inLanguage( $wgLang )->escaped()?></a></p>
+						<p><?=wfMessage( 'mana-madeforscratchers')->inLanguage( $wgLang )->parse()?></p>
+						<p><a href="<?=Title::newFromText(wfMessage( 'mana-becomeacontributor-page' )->inContentLanguage()->text())->getLinkURL()?>"><?=wfMessage( 'mana-learnaboutjoining' )->inLanguage( $wgLang )->escaped()?></a></p>
+						<p><a href="<?=Title::newFromText(wfMessage( 'portal-url' )->inContentLanguage()->text())->getLinkURL()?>"><?=wfMessage( 'mana-seeportal' )->inLanguage( $wgLang )->escaped()?></a></p>
 					</div>
 				</div>
 <?php } ?>
@@ -233,10 +233,10 @@ if (!$user->isRegistered() && $wgSWS2JoinBox) { ?>
 <?php if ($this->data['catlinks']) {
 	$this->html( 'catlinks' );
 }
-$url = wfMessage('scratchwikiskin-discuss-wiki')->inLanguage( $wgLang )->escaped();
-$text = wfMessage('scratchwikiskin-discuss-wiki-text')->inLanguage( $wgLang )->escaped();
+$url = wfMessage('mana-discuss-wiki')->inLanguage( $wgLang )->escaped();
+$text = wfMessage('mana-discuss-wiki-text')->inLanguage( $wgLang )->escaped();
 $link = "<a href=\"$url\" target=\"_blank\">$text</a>";
-$line = wfMessage('scratchwikiskin-dark-theme-feedback')->rawParams( $link )->inLanguage( $wgLang )->escaped();
+$line = wfMessage('mana-dark-theme-feedback')->rawParams( $link )->inLanguage( $wgLang )->escaped();
 ?>
 					<div class="feet" style="margin: 0<?=$darkPref ? '' : '; display: none'?>"><?=$line?></div>
 					</div>
@@ -258,13 +258,13 @@ $line = wfMessage('scratchwikiskin-dark-theme-feedback')->rawParams( $link )->in
 			</a>
 			<?php } ?>
 		</ul>
-<?php if ( $config->get( 'SWS2FooterBanner' ) ) { ?>
+<?php if ( $config->get( 'ManaFooterBanner' ) ) { ?>
 		<div class="lists" style="font-weight:bold;margin-bottom:10px">
-			<span><?= $this->footerLinks( $config->get( 'SWS2FooterBanner' ) ) ?></span>
+			<span><?= $this->footerLinks( $config->get( 'ManaFooterBanner' ) ) ?></span>
 		</div>
 <?php } ?>
 		<div class="lists">
-			<span><?= $this->footerLinks( $config->get( 'SWS2FooterLinks' ) ) ?></span>
+			<span><?= $this->footerLinks( $config->get( 'ManaFooterLinks' ) ) ?></span>
 		</div>
 <?php
 // Page tools (what links here, permanent link, …) from the sidebar's TOOLBOX.
@@ -284,7 +284,7 @@ if ( $tools ) { ?>
 </div>
 <script>
 /*
-ScratchWikiSkin script
+Mana script
 */
 
 //get an element from a query selector, with functions to write, add, show, hide, addclass, delclass
@@ -401,19 +401,19 @@ if (sidebarToggle) sidebarToggle.addEventListener('click', toggleSidebar);
 	}
 
 	/**
-	 * Inline :root overrides from $wgSWS2Colors, $wgSWS2Background and $wgSWS2Cursor*.
+	 * Inline :root overrides from $wgManaColors, $wgManaBackground and $wgManaCursor*.
 	 * Defaults live in main.css; only what a wiki sets ends up here.
 	 */
 	private function themeStyle( Config $config ): string {
-		$vars = $config->get( 'SWS2Colors' );
-		if ( $config->get( 'SWS2Background' ) ) {
-			$vars['background-image'] = 'url("' . $config->get( 'SWS2Background' ) . '")';
+		$vars = $config->get( 'ManaColors' );
+		if ( $config->get( 'ManaBackground' ) ) {
+			$vars['background-image'] = 'url("' . $config->get( 'ManaBackground' ) . '")';
 		}
-		if ( $config->get( 'SWS2Cursor' ) ) {
-			$vars['cursor'] = 'url("' . $config->get( 'SWS2Cursor' ) . '") 4 4, auto';
+		if ( $config->get( 'ManaCursor' ) ) {
+			$vars['cursor'] = 'url("' . $config->get( 'ManaCursor' ) . '") 4 4, auto';
 		}
-		if ( $config->get( 'SWS2CursorLink' ) ) {
-			$vars['cursor-link'] = 'url("' . $config->get( 'SWS2CursorLink' ) . '") 4 4, pointer';
+		if ( $config->get( 'ManaCursorLink' ) ) {
+			$vars['cursor-link'] = 'url("' . $config->get( 'ManaCursorLink' ) . '") 4 4, pointer';
 		}
 		$css = '';
 		foreach ( $vars as $name => $value ) {

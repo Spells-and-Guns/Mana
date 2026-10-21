@@ -1,18 +1,18 @@
 {
-	"name": "ScratchWikiSkin",
+	"name": "Mana",
 	"author": "Original skin by JSO. Rewrite to update style and registration by Kenny2scratch. Contributions made from jvvg, blob8108, scmb1, -PRO-,",
-	"url": "https://github.com/InternationalScratchWiki/ScratchWikiSkin2",
-	"descriptionmsg": "scratchwikiskin-desc",
-	"namemsg": "skinname-scratchwikiskin2",
+	"url": "https://github.com/Spells-and-Guns/Mana",
+	"descriptionmsg": "mana-desc",
+	"namemsg": "skinname-mana",
 	"license-name": "MIT",
 	"type": "skin",
 	"ValidSkinNames": {
-		"scratchwikiskin2": "ScratchWikiSkin"
+		"mana": "Mana"
 	},
 	"AutoloadClasses": {
-		"SkinScratchWikiSkin": "ScratchWikiSkin.skin.php",
-		"ScratchWikiSkinTemplate": "ScratchWikiSkinTemplate.php",
-		"ScratchWikiSkinHooks": "ScratchWikiSkin.hooks.php"
+		"SkinMana": "SkinMana.php",
+		"ManaTemplate": "ManaTemplate.php",
+		"ManaHooks": "ManaHooks.php"
 	},
 	"Hooks": {
 		"GetPreferences": "main",
@@ -20,15 +20,15 @@
 	},
 	"HookHandlers": {
 		"main": {
-			"class": "ScratchWikiSkinHooks",
+			"class": "ManaHooks",
 			"services": ["UserOptionsLookup"]
 		}
 	},
 	"MessagesDirs": {
-		"ScratchWikiSkin": "i18n"
+		"Mana": "i18n"
 	},
 	"ResourceModules": {
-		"skins.scratchwikiskin2": {
+		"skins.mana": {
 			"class": "MediaWiki\\ResourceLoader\\SkinModule",
 			"features": {
 				"content-links": true,
@@ -74,51 +74,51 @@
 	},
 	"ResourceFileModulePaths": {
 		"localBasePath": "",
-		"remoteSkinPath": "ScratchWikiSkin2"
+		"remoteSkinPath": "Mana"
 	},
 	"config": {
-		"SWS2JoinBox": {
+		"ManaJoinBox": {
 			"value": true
 		},
-		"SWS2ForceDarkTheme": {
+		"ManaForceDarkTheme": {
 			"value": false
 		},
-		"SWS2Colors": {
+		"ManaColors": {
 			"value": {},
 			"description": "CSS variables to override, e.g. { \"link-color\": \"255, 247, 0, 0.9\" }. See :root in resources/css/main.css for the full list."
 		},
-		"SWS2Background": {
+		"ManaBackground": {
 			"value": null,
 			"description": "URL of the page background image. null uses resources/background.webp."
 		},
-		"SWS2HeaderLogo": {
+		"ManaHeaderLogo": {
 			"value": null,
 			"description": "URL of the big logo above the content. null uses resources/logo.png, false hides it. The small navbar logo comes from $wgLogos['wordmark']."
 		},
-		"SWS2NavLogoLink": {
+		"ManaNavLogoLink": {
 			"value": "https://www.spellsandguns.com/",
 			"description": "Where the navbar logo links to. Empty links to the main page."
 		},
-		"SWS2Cursor": {
+		"ManaCursor": {
 			"value": null,
 			"description": "URL of a custom mouse cursor image. null keeps the normal cursor."
 		},
-		"SWS2CursorLink": {
+		"ManaCursorLink": {
 			"value": null,
 			"description": "URL of a custom cursor image shown over links."
 		},
-		"SWS2EditGuide": {
+		"ManaEditGuide": {
 			"value": "Wiki_Editing",
 			"description": "Page linked as the editing guide in the edit menu. Empty hides it."
 		},
-		"SWS2FooterBanner": {
+		"ManaFooterBanner": {
 			"value": {
 				"sng-footer-discord-cta": "https://discord.gg/wqRBSytTmP"
 			},
 			"merge_strategy": "provide_default",
 			"description": "Bold line at the top of the footer, as { label: target }. Empty hides it."
 		},
-		"SWS2FooterLinks": {
+		"ManaFooterLinks": {
 			"value": {
 				"sng-footer-wiki-home": "/",
 				"YouTube": "https://www.youtube.com/channel/UCpTRuIbbXl0C3503l-GT7Ug",

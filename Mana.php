@@ -1,6 +1,6 @@
 <?php
 /**
- * ScratchWikiSkin
+ * Mana
  *
  * @file
  * @ingroup Skins
@@ -12,4 +12,4 @@ if ( !function_exists( 'wfLoadSkin' ) ) {
 	die( 'This skin has been upgraded and now requires MediaWiki 1.25 or newer.' );
 }
 
-wfLoadSkin( 'ScratchWikiSkin' );
+wfLoadSkin( 'Mana' );
