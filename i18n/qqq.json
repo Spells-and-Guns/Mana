@@ -60,8 +60,8 @@
 	"scratchwikiskin-jump-to-sidebar": "Jump to sidebar link in header, hidden unless tabbed to",
 	"scratchwikiskin-jump-to-content": "Jump to content link in header, hidden unless tabbed to",
 	"scratchwikiskin-notloggedin": "Text for username when not logged in",
-	"scratchwikiskin-pref-color": "Prompt to set header color",
-	"scratchwikiskin-pref-dark": "Label for dark theme checkbox",
+	"sng-pref-color": "Prompt to set header color",
+	"sng-pref-dark": "Label for dark theme checkbox",
 	"scratchwikiskin-dark-theme-feedback": "Footer requesting feedback on dark theme; $1 is the link",
 	"scratchwikiskin-search": "Placeholder for search box",
 	"scratchwikiskin-search-title": "Hover text for search box; $1 is the access key"

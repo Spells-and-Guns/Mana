@@ -65,7 +65,7 @@ class ScratchWikiSkinHooks implements OutputPageBodyAttributesHook, GetPreferenc
         $preferences[HEADER_COLOR_PREF] = [
             'type' => 'color',
             'pattern' => '#[0-9A-Fa-f]{6}',
-            'label-message' => 'scratchwikiskin-pref-color',
+            'label-message' => 'sng-pref-color',
             'section' => 'rendering/skin',
             // Only expose background color preference when the skin is selected
             'default' => ($origpref ? $origpref : '#7953c4'),
@@ -73,7 +73,7 @@ class ScratchWikiSkinHooks implements OutputPageBodyAttributesHook, GetPreferenc
         ];
         $preferences[DARK_THEME_PREF] = [
             'type' => 'check',
-            'label-message' => 'scratchwikiskin-pref-dark',
+            'label-message' => 'sng-pref-dark',
             'section' => 'rendering/skin',
             'hide-if' => ['!==', 'wpskin', 'scratchwikiskin2'],
         ];
