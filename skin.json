@@ -82,6 +82,56 @@
 		},
 		"SWS2ForceDarkTheme": {
 			"value": false
+		},
+		"SWS2Colors": {
+			"value": {},
+			"description": "CSS variables to override, e.g. { \"link-color\": \"255, 247, 0, 0.9\" }. See :root in resources/css/main.css for the full list."
+		},
+		"SWS2Background": {
+			"value": null,
+			"description": "URL of the page background image. null uses resources/background.webp."
+		},
+		"SWS2HeaderLogo": {
+			"value": null,
+			"description": "URL of the big logo above the content. null uses resources/logo.png, false hides it. The small navbar logo comes from $wgLogos['wordmark']."
+		},
+		"SWS2NavLogoLink": {
+			"value": "https://www.spellsandguns.com/",
+			"description": "Where the navbar logo links to. Empty links to the main page."
+		},
+		"SWS2Cursor": {
+			"value": null,
+			"description": "URL of a custom mouse cursor image. null keeps the normal cursor."
+		},
+		"SWS2CursorLink": {
+			"value": null,
+			"description": "URL of a custom cursor image shown over links."
+		},
+		"SWS2EditGuide": {
+			"value": "Wiki_Editing",
+			"description": "Page linked as the editing guide in the edit menu. Empty hides it."
+		},
+		"SWS2FooterBanner": {
+			"value": {
+				"sng-footer-discord-cta": "https://discord.gg/wqRBSytTmP"
+			},
+			"merge_strategy": "provide_default",
+			"description": "Bold line at the top of the footer, as { label: target }. Empty hides it."
+		},
+		"SWS2FooterLinks": {
+			"value": {
+				"sng-footer-wiki-home": "/",
+				"YouTube": "https://www.youtube.com/channel/UCpTRuIbbXl0C3503l-GT7Ug",
+				"Discord": "https://discord.spellsandguns.com",
+				"sng-footer-about-wiki": "About",
+				"sng-footer-gaming-wikis": "https://spellsandguns.com/",
+				"sng-footer-terms-of-use": "Term_of_Use",
+				"sng-footer-privacy-policy": "Privacy_Policy",
+				"sng-footer-copyright-policy": "https://creativecommons.org/licenses/by-sa/4.0/",
+				"recentchanges": "Special:RecentChanges"
+			},
+			"merge_strategy": "provide_default",
+			"description": "Footer links as { label: target }. A label that is a message key is translated; a target is a URL, an absolute path or a page name."
 		}
 	},
 	"manifest_version": 2,

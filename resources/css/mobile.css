@@ -14,7 +14,8 @@
     margin: auto 0;
     width: 100%;
 }
-#navigation .sidebar-toggle a {
+#navigation .sidebar-toggle a,
+#navigation .menu > a.dropdown-toggle {
     width: 50px;
     height: 50px;
     display: block;
@@ -30,7 +31,51 @@
 .logopart {
     position: static;
     margin: auto;
-    width: 33%;
+    width: 100%;
+    display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.logoheader {
+    height: auto;
+    padding: 0 10px 10px;
+    box-sizing: border-box;
+}
+
+/* Shrink to fit the screen, never above the desktop size; min-width lets the flex child shrink. */
+.logopart a {
+    min-width: 0;
+}
+
+.logopart img {
+    display: block;
+    max-width: 100%;
+    max-height: var(--header-logo-height);
+    width: auto;
+    height: auto;
+}
+
+#navigation .inner .menu {
+    display: block;
+}
+
+#navigation .menu > a.dropdown-toggle {
+    padding: 0;
+}
+
+#navigation .menu > a.dropdown-toggle:after {
+    display: none;
+}
+
+#navigation .menu > .dropdown.open {
+    column-count: 2;
+    column-gap: 0;
+    width: 310px;
+    max-height: calc(100vh - 60px);
+    overflow-y: auto;
+}
+
+#navigation .menu > .dropdown li {
+    break-inside: avoid;
 }
